@@ -4,6 +4,7 @@
 // @version      1.1
 // @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
 // @author       g31w0fw0rld
+// @license      MIT
 // @match        https://www.pcgamingwiki.com/*
 // @downloadURL  https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js
 // @updateURL    https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js
