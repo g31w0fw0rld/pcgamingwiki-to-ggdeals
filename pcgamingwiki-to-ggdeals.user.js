@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.1
+// @version      1.2
 // @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
 // @author       g31w0fw0rld
 // @license      MIT
@@ -21,6 +21,9 @@
     const SPECIAL_CHARS_REGEX = /[^\w\s-]/g;
     const GGDEALS_GAME_URL = 'https://gg.deals/game/';
     const GGDEALS_SEARCH_URL = 'https://gg.deals/games/?title=';
+    // Favicon oficial de GG.deals para el icono de los botones. Se carga como <img>
+    // remoto; si el CSP de PCGamingWiki lo bloquea, onerror lo oculta.
+    const GGDEALS_ICON_URL = 'https://gg.deals/favicon.ico';
     const AVAILABILITY_HEADER_ID = 'Availability';
 
     // =============================================
@@ -52,10 +55,20 @@
     function createLinkButton(text, url) {
         const a = document.createElement('a');
         a.className = 'external text';
-        a.textContent = text;
         a.href = url;
         a.target = '_blank';
         a.style.marginLeft = '10px';
+
+        const img = document.createElement('img');
+        img.src = GGDEALS_ICON_URL;
+        img.alt = '';
+        img.style.width = '16px';
+        img.style.height = '16px';
+        img.style.verticalAlign = 'middle';
+        img.style.marginRight = '5px';
+        img.addEventListener('error', () => img.remove());  // sin icono si el CSP lo bloquea
+        a.appendChild(img);
+        a.appendChild(document.createTextNode(text));
         return a;
     }
 
