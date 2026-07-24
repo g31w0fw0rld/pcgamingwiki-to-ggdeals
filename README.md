@@ -8,7 +8,7 @@ Userscript de Tampermonkey que añade botones a GG.deals en las páginas de PCGa
 
 **Instalación:**
 1. Instala [Tampermonkey](https://www.tampermonkey.net/).
-2. Abre el instalador: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (también en GreasyFork y OpenUserJS).
+2. Abre el instalador: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (también en [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) y [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
 
 **Sitio:** `pcgamingwiki.com`
 
@@ -18,7 +18,7 @@ Userscript de Tampermonkey que añade botones a GG.deals en las páginas de PCGa
 
 **Install:**
 1. Install [Tampermonkey](https://www.tampermonkey.net/).
-2. Open the installer: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (also on GreasyFork and OpenUserJS).
+2. Open the installer: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (also on [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) and [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
 
 **Site:** `pcgamingwiki.com`
 
