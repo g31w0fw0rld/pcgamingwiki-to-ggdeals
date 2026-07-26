@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2
+// @version      1.2.1
 // @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
 // @author       g31w0fw0rld
 // @license      MIT
@@ -18,7 +18,16 @@
     // CONSTANTES
     // =============================================
     const PCGW_TITLE_SUFFIX = / - PCGamingWiki.*/i;
+    // Apóstrofos y puntos de sigla se borran sin dejar hueco, porque los slugs de
+    // gg.deals los eliden: "Marvel's Spider-Man" -> marvels-spider-man (no
+    // marvel-s-...) y "S.T.A.L.K.E.R. 2" -> stalker-2 (no s-t-a-l-k-e-r-2).
+    const ELIDED_CHARS_REGEX = /['’`.]/g;
+    // El resto de la puntuación se sustituye por espacio (que luego pasa a "-" o
+    // "+"), nunca se borra: borrándola "Tomb Raider IV-VI" quedaba como "IVVI".
+    // El guion se conserva tal cual porque ya es el separador del slug.
     const SPECIAL_CHARS_REGEX = /[^\w\s-]/g;
+    // Diacríticos combinados, para quitarlos tras normalizar a NFD.
+    const DIACRITICS_REGEX = /[\u0300-\u036f]/g;
     const GGDEALS_GAME_URL = 'https://gg.deals/game/';
     const GGDEALS_SEARCH_URL = 'https://gg.deals/games/?title=';
     // Favicon oficial de GG.deals para el icono de los botones. Se carga como <img>
@@ -32,14 +41,27 @@
 
     /**
      * Extrae el nombre del juego desde el título de la página,
-     * eliminando el sufijo " - PCGamingWiki..." y caracteres especiales.
+     * eliminando el sufijo " - PCGamingWiki..." y normalizando la puntuación.
      * Genera dos formatos: kebab-case para URL directa y palabras separadas
      * por '+' para búsqueda.
      * @returns {{ kebab: string, search: string }} URLs formateadas para GGDeals.
      */
     function extractGameTitle() {
         const rawTitle = document.title.replace(PCGW_TITLE_SUFFIX, '').trim();
-        const cleanTitle = rawTitle.replace(SPECIAL_CHARS_REGEX, '').toLowerCase();
+        const cleanTitle = rawTitle
+            // Descomponer y quitar los acentos antes de filtrar: \w es ASCII, asi
+            // que SPECIAL_CHARS_REGEX se comía la vocal acentuada entera y
+            // "Pokémon" quedaba "Pokmon". gg.deals translitera en sus slugs, de
+            // modo que "pokemon" es justo lo que hay que pedirle.
+            .normalize('NFD')
+            .replace(DIACRITICS_REGEX, '')
+            .replace(ELIDED_CHARS_REGEX, '')
+            .replace(SPECIAL_CHARS_REGEX, ' ')
+            // Colapsar los espacios dobles que dejan los pasos anteriores, para no
+            // acabar con "--" en el slug ni "++" en la búsqueda.
+            .replace(/\s+/g, ' ')
+            .trim()
+            .toLowerCase();
         return {
             kebab: cleanTitle.replace(/\s+/g, '-'),
             search: cleanTitle.replace(/\s+/g, '+')
@@ -57,6 +79,7 @@
         a.className = 'external text';
         a.href = url;
         a.target = '_blank';
+        a.rel = 'noopener noreferrer';  // la pestaña destino no recibe window.opener ni el referer
         a.style.marginLeft = '10px';
 
         const img = document.createElement('img');

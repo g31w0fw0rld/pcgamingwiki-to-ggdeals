@@ -22,6 +22,12 @@ Userscript de Tampermonkey que añade botones a GG.deals en las páginas de PCGa
 
 **Site:** `pcgamingwiki.com`
 
+## Privacidad / Privacy
+
+**ES:** el script no hace ninguna petición de red ni guarda nada: solo lee el título de la página (`document.title`) para sacar el nombre del juego e inserta los enlaces hacia GG.deals. Declara `@grant none`, así que no tiene acceso a las APIs privilegiadas del gestor de userscripts (almacenamiento, peticiones entre dominios). No se envía nada a terceros ni al autor, y solo visitas GG.deals si haces clic en un botón.
+
+**EN:** the script makes no network requests and stores nothing: it only reads the page title (`document.title`) to get the game name and inserts the GG.deals links. It declares `@grant none`, so it has no access to the userscript manager's privileged APIs (storage, cross-origin requests). Nothing is sent to third parties or to the author, and you only visit GG.deals if you click a button.
+
 ## Apoyar / Support
 
 Esto es parte de algo que estoy construyendo para crecer. Si te sirve y quieres apoyar, puedes invitarme un café en **[Ko-fi](https://ko-fi.com/g31w0fw0rld)** —solo si quieres—; y si hay una causa que lo necesite más que yo, ayúdala a ella.
