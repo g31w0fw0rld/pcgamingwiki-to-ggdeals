@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2.1
+// @version      1.2.2
 // @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
 // @author       g31w0fw0rld
 // @license      MIT
@@ -17,7 +17,11 @@
     // =============================================
     // CONSTANTES
     // =============================================
-    const PCGW_TITLE_SUFFIX = / - PCGamingWiki.*/i;
+    // Tolerante al separador: PCGamingWiki titula " - PCGamingWiki PCGW - bugs...",
+    // pero si algún día cambia a "| PCGamingWiki" (o quita los espacios) el recorte
+    // seguiría funcionando. El `.*` final ya absorbe toda la cola, así que aquí no
+    // hace falta una lista de variantes como en el script hermano.
+    const PCGW_TITLE_SUFFIX = /\s*[-|]\s*PCGamingWiki.*$/i;
     // Apóstrofos y puntos de sigla se borran sin dejar hueco, porque los slugs de
     // gg.deals los eliden: "Marvel's Spider-Man" -> marvels-spider-man (no
     // marvel-s-...) y "S.T.A.L.K.E.R. 2" -> stalker-2 (no s-t-a-l-k-e-r-2).
