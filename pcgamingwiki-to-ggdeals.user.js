@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2.2
+// @version      1.2.3
 // @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
 // @author       g31w0fw0rld
 // @license      MIT
@@ -72,16 +72,26 @@
         };
     }
 
+    // Los dos botones se ven idénticos y su diferencia es invisible: el directo
+    // arma el slug ADIVINÁNDOLO desde el título y puede dar 404; el de búsqueda
+    // siempre devuelve algo. Sin esta aclaración nadie entiende por qué hay dos.
+    // Van en inglés porque las etiquetas ya lo están: este script no lleva i18n
+    // a propósito, así que el tooltip no cruza ninguna barrera nueva.
+    const DIRECT_TOOLTIP = "Direct link — may 404 if the slug doesn't match";
+    const SEARCH_TOOLTIP = 'Title search — always returns something';
+
     /**
      * Crea un enlace con estilo de botón externo para PCGamingWiki.
      * @param {string} text - Texto visible del botón.
      * @param {string} url - URL de destino.
+     * @param {string} tooltip - Texto del title (explica si el enlace es exacto o no).
      * @returns {HTMLAnchorElement} El enlace/botón creado.
      */
-    function createLinkButton(text, url) {
+    function createLinkButton(text, url, tooltip) {
         const a = document.createElement('a');
         a.className = 'external text';
         a.href = url;
+        a.title = tooltip;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';  // la pestaña destino no recibe window.opener ni el referer
         a.style.marginLeft = '10px';
@@ -106,8 +116,8 @@
     function init() {
         const { kebab, search } = extractGameTitle();
 
-        const directBtn = createLinkButton('View on GGDeals', `${GGDEALS_GAME_URL}${kebab}`);
-        const searchBtn = createLinkButton('Search on GGDeals', `${GGDEALS_SEARCH_URL}${search}`);
+        const directBtn = createLinkButton('View on GGDeals', `${GGDEALS_GAME_URL}${kebab}`, DIRECT_TOOLTIP);
+        const searchBtn = createLinkButton('Search on GGDeals', `${GGDEALS_SEARCH_URL}${search}`, SEARCH_TOOLTIP);
 
         const header = document.getElementById(AVAILABILITY_HEADER_ID);
         if (header) {
