@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2.3
-// @description  Adds GGDeals buttons on PCGamingWiki game pages for direct access and search by title.
+// @version      1.2.4
+// @description  Adds two GG.deals buttons to the Availability section of PCGamingWiki articles: a direct link built from the title, which is fast but can 404, and a title search, which always returns something. Each says which it is in its tooltip, and titles are normalised the way GG.deals writes its slugs.
 // @author       g31w0fw0rld
 // @license      MIT
 // @match        https://www.pcgamingwiki.com/*
