@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2.5
+// @version      1.2.6
 // @description  Adds two GG.deals buttons to the Availability section of PCGamingWiki articles: a direct link built from the title, which is fast but can 404, and a title search, which always returns something. Each says which it is in a tooltip drawn with the wiki's own ReferenceTooltips styles, so it looks like the ones on the article's references, and titles are normalised the way GG.deals writes its slugs.
+// @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAATlBMVEU3WJjN1eWbrMxAX5yKncNFZJ+NoMRkfa89XZuWp8ladapzird5j7qUpsg6W5phe66Blr5PbKTDzeBqg7JJZ6G8x920wdmrudRvhrWltNFJFKfyAAABH0lEQVRYhe3X63KDIBAFYBCV2yIQbGre/0UL2tp4yYQs6Uwm9fz2fMNsmMxCyJE/j2oFIVpb3yDKHZcnShkhdZVinOaqz6/b1KZXwBRZQ1A5J/+g31kB41ny2whg2X4U8O5M18kHOvjctB8Cmr360wAJrpXzT4kA2vSFaLyyQeOBKQIH9KwMGGdXO9DBKjRQlQzxTYCahxYNmAEg/rmJyUIAPxeJecWLAJIuEgYwyrMiIMalb0APAQtUYIOpsENc5n8CxnuvS4B0kfgLAd0BvAAgDuB9AXYqBOKWurNn7gLsBhDjN9vmDLAhB4jp4bIF5O+WeBdI4xguK2CZu0CM4PsPjvRygVtDXKWzafWfgXZ88mR2r4zx0RWbOcc+gssXXnUUFMzn1xYAAAAASUVORK5CYII=
 // @author       g31w0fw0rld
 // @license      MIT
 // @match        https://www.pcgamingwiki.com/*
@@ -38,6 +39,18 @@
     // remoto; si el CSP de PCGamingWiki lo bloquea, onerror lo oculta.
     const GGDEALS_ICON_URL = 'https://gg.deals/favicon.ico';
     const AVAILABILITY_HEADER_ID = 'Availability';
+
+    const STYLES_ID = 'pg2gg-styles';
+    const BTN_CLASS = 'pg2gg-btn';
+    const ICON_CLASS = 'pg2gg-ico';
+    const LABEL_LONG_CLASS = 'pg2gg-long';
+    const LABEL_SHORT_CLASS = 'pg2gg-short';
+    // Ancho por debajo del cual el encabezado no da de sí para las dos etiquetas
+    // largas. No es el punto de corte de ningún skin de la wiki: es el ancho a
+    // partir del cual "Availability" más los dos enlaces dejan de caber en un
+    // renglón, así que cubre tanto la vista móvil (Minerva) como una ventana de
+    // escritorio estrecha, donde el problema es exactamente el mismo.
+    const NARROW_MAX_WIDTH = 720;
 
     // =============================================
     // FUNCIONES
@@ -81,6 +94,16 @@
     // tooltip de la wiki (más abajo), que es el que se ve normalmente.
     const DIRECT_TOOLTIP = "Direct link — may 404 if the slug doesn't match";
     const SEARCH_TOOLTIP = 'Title search — always returns something';
+
+    // Cada botón lleva sus DOS etiquetas puestas y es el CSS el que enseña una u
+    // otra según el ancho. Se hace así, y no reescribiendo el texto desde JS, para
+    // que el cambio siga al girar el teléfono o al reajustar la ventana sin tener
+    // que escuchar `resize`. En estrecho el icono ya dice de qué sitio se trata,
+    // así que la etiqueta solo tiene que distinguir un botón del otro.
+    const DIRECT_LABEL = 'View on GGDeals';
+    const DIRECT_LABEL_SHORT = 'View';
+    const SEARCH_LABEL = 'Search on GGDeals';
+    const SEARCH_LABEL_SHORT = 'Search';
 
     // =============================================
     // TOOLTIP NATIVO DE LA WIKI (ReferenceTooltips)
@@ -308,31 +331,67 @@
     }
 
     /**
+     * Estilos de los dos botones.
+     *
+     * Lo que tenían en línea se muda aquí porque un estilo en línea no se puede
+     * matizar desde una media query: gana siempre, y el ancho estrecho necesita
+     * justo eso, cambiar el margen y el tamaño del icono.
+     *
+     * En estrecho los enlaces NO salen del encabezado —siguen colgando del <h2>,
+     * que es donde el lector los busca—: lo que se recorta es lo que sobra para
+     * que quepan en su renglón. Heredan el cuerpo del encabezado, que en Minerva
+     * es grande, así que se les fija un tamaño propio; con eso y las etiquetas
+     * cortas, "Availability" y los dos botones caben en una línea.
+     */
+    function injectStyles() {
+        if (document.getElementById(STYLES_ID)) return;
+        const style = document.createElement('style');
+        style.id = STYLES_ID;
+        style.textContent = `
+            .${BTN_CLASS} { margin-left: 10px; white-space: nowrap; }
+            .${ICON_CLASS} { width: 16px; height: 16px; vertical-align: middle; margin-right: 5px; }
+            .${LABEL_SHORT_CLASS} { display: none; }
+            @media screen and (max-width: ${NARROW_MAX_WIDTH}px) {
+                .${BTN_CLASS} { margin-left: 8px; font-size: 14px; }
+                .${ICON_CLASS} { width: 14px; height: 14px; margin-right: 4px; }
+                .${LABEL_LONG_CLASS} { display: none; }
+                .${LABEL_SHORT_CLASS} { display: inline; }
+            }
+        `;
+        (document.head || document.documentElement).appendChild(style);
+    }
+
+    /**
      * Crea un enlace con estilo de botón externo para PCGamingWiki.
-     * @param {string} text - Texto visible del botón.
+     * @param {string} text - Texto visible del botón en pantalla ancha.
+     * @param {string} shortText - Su versión corta, la que se ve en estrecho.
      * @param {string} url - URL de destino.
      * @param {string} tooltip - Texto del title (explica si el enlace es exacto o no).
      * @returns {HTMLAnchorElement} El enlace/botón creado.
      */
-    function createLinkButton(text, url, tooltip) {
+    function createLinkButton(text, shortText, url, tooltip) {
         const a = document.createElement('a');
-        a.className = 'external text';
+        a.className = `external text ${BTN_CLASS}`;
         a.href = url;
         a.title = tooltip;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';  // la pestaña destino no recibe window.opener ni el referer
-        a.style.marginLeft = '10px';
 
         const img = document.createElement('img');
+        img.className = ICON_CLASS;
         img.src = GGDEALS_ICON_URL;
         img.alt = '';
-        img.style.width = '16px';
-        img.style.height = '16px';
-        img.style.verticalAlign = 'middle';
-        img.style.marginRight = '5px';
         img.addEventListener('error', () => img.remove());  // sin icono si el CSP lo bloquea
         a.appendChild(img);
-        a.appendChild(document.createTextNode(text));
+
+        const long = document.createElement('span');
+        long.className = LABEL_LONG_CLASS;
+        long.textContent = text;
+        const short = document.createElement('span');
+        short.className = LABEL_SHORT_CLASS;
+        short.textContent = shortText;
+        a.appendChild(long);
+        a.appendChild(short);
         return a;
     }
 
@@ -343,11 +402,14 @@
     function init() {
         const { kebab, search } = extractGameTitle();
 
-        const directBtn = createLinkButton('View on GGDeals', `${GGDEALS_GAME_URL}${kebab}`, DIRECT_TOOLTIP);
-        const searchBtn = createLinkButton('Search on GGDeals', `${GGDEALS_SEARCH_URL}${search}`, SEARCH_TOOLTIP);
+        const directBtn = createLinkButton(
+            DIRECT_LABEL, DIRECT_LABEL_SHORT, `${GGDEALS_GAME_URL}${kebab}`, DIRECT_TOOLTIP);
+        const searchBtn = createLinkButton(
+            SEARCH_LABEL, SEARCH_LABEL_SHORT, `${GGDEALS_SEARCH_URL}${search}`, SEARCH_TOOLTIP);
 
         const header = document.getElementById(AVAILABILITY_HEADER_ID);
         if (header) {
+            injectStyles();
             header.appendChild(directBtn);
             header.appendChild(searchBtn);
             // Después de insertarlos: la comprobación del CSS mide un nodo dentro del
