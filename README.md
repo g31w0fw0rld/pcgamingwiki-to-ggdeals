@@ -6,6 +6,10 @@ Tampermonkey userscript that adds GG.deals buttons to PCGamingWiki pages. / User
 
 *The two buttons hang off the **Availability** heading — the section that already lists where the game is sold. / Los dos botones cuelgan del encabezado **Availability**, la sección que ya lista dónde se vende el juego.*
 
+<img src="docs/screenshot-availability-mobile.png" width="375" alt="The same two links on the Availability heading at phone width, with short labels">
+
+*On a narrow screen the pair still rides the heading, with the labels cut to **View** and **Search** so the three fit on the line instead of pushing the heading onto its own. / En una pantalla estrecha el par sigue montado en el encabezado, con las etiquetas recortadas a **View** y **Search** para que los tres quepan en el renglón en vez de empujar el encabezado a una línea aparte.*
+
 ## English
 
 ### What it does
