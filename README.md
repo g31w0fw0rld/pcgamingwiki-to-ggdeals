@@ -1,6 +1,6 @@
 # PCGamingWiki to GGDeals Link Generator
 
-Tampermonkey userscript that adds GG.deals buttons to PCGamingWiki pages. / Userscript de Tampermonkey que añade botones a GG.deals en las páginas de PCGamingWiki.
+Userscript that adds GG.deals buttons to PCGamingWiki pages. / Userscript que añade botones a GG.deals en las páginas de PCGamingWiki.
 
 ![The two GG.deals buttons next to the Availability heading on a PCGamingWiki article](docs/screenshot-availability.png)
 
@@ -27,7 +27,7 @@ Tampermonkey userscript that adds GG.deals buttons to PCGamingWiki pages. / User
 **Language:** none — both labels and both tooltips are in English, matching the wiki itself.
 
 **Install:**
-1. Install [Tampermonkey](https://www.tampermonkey.net/).
+1. Install a userscript manager: [Violentmonkey](https://violentmonkey.github.io/) (open source, Chrome/Edge/Firefox) or [Tampermonkey](https://www.tampermonkey.net/). On Chrome and Edge, also turn on **Allow user scripts** on the extension's own page in `chrome://extensions` — without it nothing runs.
 2. Open the installer: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (also on [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) and [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
 
 **Site:** `pcgamingwiki.com`
@@ -49,7 +49,7 @@ Tampermonkey userscript that adds GG.deals buttons to PCGamingWiki pages. / User
 **Idioma:** ninguno — las dos etiquetas y los dos tooltips están en inglés, igual que la propia wiki.
 
 **Instalación:**
-1. Instala [Tampermonkey](https://www.tampermonkey.net/).
+1. Instala un gestor de userscripts: [Violentmonkey](https://violentmonkey.github.io/) (código abierto, Chrome/Edge/Firefox) o [Tampermonkey](https://www.tampermonkey.net/). En Chrome y Edge, activa además **Allow user scripts** en la página de la propia extensión en `chrome://extensions`; sin eso no se ejecuta nada.
 2. Abre el instalador: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (también en [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) y [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
 
 **Sitio:** `pcgamingwiki.com`
