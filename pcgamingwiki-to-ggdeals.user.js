@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         PCGamingWiki to GGDeals Link Generator
 // @namespace    https://www.gg.deals/
-// @version      1.2.6
-// @description  Adds two GG.deals buttons to the Availability section of PCGamingWiki articles: a direct link built from the title, which is fast but can 404, and a title search, which always returns something. Each says which it is in a tooltip drawn with the wiki's own ReferenceTooltips styles, so it looks like the ones on the article's references, and titles are normalised the way GG.deals writes its slugs.
+// @version      1.2.7
+// @description  A GG.deals link for PCGamingWiki. You finish reading whether a game runs well and the next question is what it costs — and "Availability" lists the stores that sell it without a single price. Two buttons go there: one straight to the game's GG.deals page, one to a title search for when that direct guess misses, each saying which it is in the wiki's own tooltip. It adds nothing else. The rest is in the repository.
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAATlBMVEU3WJjN1eWbrMxAX5yKncNFZJ+NoMRkfa89XZuWp8ladapzird5j7qUpsg6W5phe66Blr5PbKTDzeBqg7JJZ6G8x920wdmrudRvhrWltNFJFKfyAAABH0lEQVRYhe3X63KDIBAFYBCV2yIQbGre/0UL2tp4yYQs6Uwm9fz2fMNsmMxCyJE/j2oFIVpb3yDKHZcnShkhdZVinOaqz6/b1KZXwBRZQ1A5J/+g31kB41ny2whg2X4U8O5M18kHOvjctB8Cmr360wAJrpXzT4kA2vSFaLyyQeOBKQIH9KwMGGdXO9DBKjRQlQzxTYCahxYNmAEg/rmJyUIAPxeJecWLAJIuEgYwyrMiIMalb0APAQtUYIOpsENc5n8CxnuvS4B0kfgLAd0BvAAgDuB9AXYqBOKWurNn7gLsBhDjN9vmDLAhB4jp4bIF5O+WeBdI4xguK2CZu0CM4PsPjvRygVtDXKWzafWfgXZ88mR2r4zx0RWbOcc+gssXXnUUFMzn1xYAAAAASUVORK5CYII=
 // @author       g31w0fw0rld
 // @license      MIT

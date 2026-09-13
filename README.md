@@ -2,6 +2,12 @@
 
 Userscript that adds GG.deals buttons to PCGamingWiki pages. / Userscript que añade botones a GG.deals en las páginas de PCGamingWiki.
 
+**⚡ Quick install / Instalación rápida:** **[Install / Instalar](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js)** — also on / también en [GreasyFork](https://greasyfork.org/scripts/573565) · [OpenUserJS](https://openuserjs.org/scripts/g31w0fw0rldgmail.com/PCGamingWiki_to_GGDeals_Link_Generator).
+
+> You need a userscript manager first: [Violentmonkey](https://violentmonkey.github.io/) (open source) or [Tampermonkey](https://www.tampermonkey.net/). On Chrome and Edge, also turn on **Allow user scripts** on the extension's own page in `chrome://extensions` — without it nothing runs. Step-by-step under [English](#english).
+>
+> Necesitas antes un gestor de userscripts: [Violentmonkey](https://violentmonkey.github.io/) (código abierto) o [Tampermonkey](https://www.tampermonkey.net/). En Chrome y Edge, activa además **Allow user scripts** en la página de la propia extensión en `chrome://extensions`; sin eso no se ejecuta nada. Pasos detallados en [Español](#español).
+
 ![The two GG.deals buttons next to the Availability heading on a PCGamingWiki article](docs/screenshot-availability.png)
 
 *The two buttons hang off the **Availability** heading — the section that already lists where the game is sold. / Los dos botones cuelgan del encabezado **Availability**, la sección que ya lista dónde se vende el juego.*
@@ -28,7 +34,7 @@ Userscript that adds GG.deals buttons to PCGamingWiki pages. / Userscript que a�
 
 **Install:**
 1. Install a userscript manager: [Violentmonkey](https://violentmonkey.github.io/) (open source, Chrome/Edge/Firefox) or [Tampermonkey](https://www.tampermonkey.net/). On Chrome and Edge, also turn on **Allow user scripts** on the extension's own page in `chrome://extensions` — without it nothing runs.
-2. Open the installer: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (also on [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) and [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
+2. Open the installer: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (also on [GreasyFork](https://greasyfork.org/scripts/573565) and [OpenUserJS](https://openuserjs.org/scripts/g31w0fw0rldgmail.com/PCGamingWiki_to_GGDeals_Link_Generator)).
 
 **Site:** `pcgamingwiki.com`
 
@@ -50,7 +56,7 @@ Userscript that adds GG.deals buttons to PCGamingWiki pages. / Userscript que a�
 
 **Instalación:**
 1. Instala un gestor de userscripts: [Violentmonkey](https://violentmonkey.github.io/) (código abierto, Chrome/Edge/Firefox) o [Tampermonkey](https://www.tampermonkey.net/). En Chrome y Edge, activa además **Allow user scripts** en la página de la propia extensión en `chrome://extensions`; sin eso no se ejecuta nada.
-2. Abre el instalador: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (también en [GreasyFork](https://greasyfork.org/es-419/users/1590477-g31w) y [OpenUserJS](https://openuserjs.org/users/g31w0fw0rldgmail.com/scripts)).
+2. Abre el instalador: [pcgamingwiki-to-ggdeals.user.js](https://github.com/g31w0fw0rld/pcgamingwiki-to-ggdeals/raw/main/pcgamingwiki-to-ggdeals.user.js) (también en [GreasyFork](https://greasyfork.org/scripts/573565) y [OpenUserJS](https://openuserjs.org/scripts/g31w0fw0rldgmail.com/PCGamingWiki_to_GGDeals_Link_Generator)).
 
 **Sitio:** `pcgamingwiki.com`
 
